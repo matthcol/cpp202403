@@ -4,6 +4,8 @@
 #include <memory>
 #include <algorithm>
 
+#include "exerciseAlgorithm.h"
+
 
 void demoVectorDouble() {
     // vectors stored in the stack
@@ -127,6 +129,7 @@ int main()
     // demoVectorDouble();
     //demoVectorHeapRawPointer();
     // demoVectorHeapSmartPointer();
-    demoVectorIterate();
+    // demoVectorIterate();
+    exerciseAlgorithm(21.0, 3.0);
  
 }
