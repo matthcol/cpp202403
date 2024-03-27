@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 #include <memory>
 #include <algorithm>
 
@@ -122,6 +123,10 @@ void demoVectorIterate() {
     // C++20
     std::ranges::copy(temperatures.cbegin(), temperatures.cend(), std::ostream_iterator<double>(std::cout, ", "));
     std::ranges::copy(temperatures, std::ostream_iterator<double>(std::cout, ", "));
+}
+
+void demoArray() {
+    std::array<double, 1000> temperatures;
 }
 
 int main()
