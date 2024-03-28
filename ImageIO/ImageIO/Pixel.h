@@ -6,6 +6,7 @@
 #include <tuple>
 #include <string>
 #include <iostream>
+#include <compare>
 
 using rgba_t = std::tuple<double, double, double, double>;
 
@@ -19,6 +20,7 @@ private:
 public:
 	Pixel() = default;
 	Pixel(double x, double y, rgba_t rgba);
+	virtual ~Pixel();
 
 	double x() const;
 	void setX(double x);
@@ -41,7 +43,12 @@ public:
 
 	Pixel& operator+=(rgba_t rgba); // left operand = this
 	Pixel& operator+=(const Pixel& pixel);
+	Pixel operator+(rgba_t rgba) const;
 	Pixel operator+(const Pixel& pixel2) const;
+
+	//bool operator<(const Pixel& other) const;
+	bool operator==(const Pixel& other) const;
+	std::partial_ordering operator<=>(const Pixel& other) const;
 };
 
 std::ostream& operator<<(std::ostream& out, const Pixel& pixel);

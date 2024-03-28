@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="ImageIO.cpp" />
     <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="Pixel_operators.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pixel.h" />

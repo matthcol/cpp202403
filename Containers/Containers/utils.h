@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <algorithm>
+#include <iterator>
 #include <list>
 #include <vector>
 #include <set>
@@ -18,7 +19,7 @@
 //std::ostream& operator<<(std::ostream& out, const std::multiset<double>& vector);
 
 
-
+// simple template
 template<class ContainerDouble>
 std::ostream& write(std::ostream& out, const ContainerDouble& container)
 {
@@ -46,6 +47,29 @@ std::ostream& write(std::ostream& out, const ContainerDouble& container)
         std::for_each_n(start, 5, display);
     }
     return out << "]";
+}
+
+// template with concept C++20
+template< std::ranges::input_range R, std::weakly_incrementable O >
+    requires std::indirectly_copyable<std::ranges::iterator_t<R>, O>
+std::ranges::copy_result<std::ranges::borrowed_iterator_t<R>, O> copy_essential(
+    R&& range, 
+    O result,
+    std::ranges::range_difference_t<R> bin=5
+) 
+{
+    auto n = std::ranges::distance(range);
+    if (n <= 2*bin)
+    {
+        return std::ranges::copy(range, result);
+    }
+    else
+    {
+        std::ranges::copy_n(range.begin(), bin, result);
+
+        auto start = std::ranges::next(range.begin(), n-bin);
+        return std::ranges::copy_n(start, bin, result);
+    }
 }
 
 template<class T>

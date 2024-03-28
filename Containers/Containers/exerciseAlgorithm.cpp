@@ -9,6 +9,7 @@
 #include <set>
 #include <cmath>
 #include <format>
+#include <cassert>
 
 // comment following line
 #define PARALLEL 1
@@ -151,4 +152,12 @@ void exerciseAlgorithm(double mean, double stdev)
     std::ranges::transform(data, dataSqrt2.begin(), [](double t) { return sqrt(t); });
     std::cout << "SQRT(data): " << dataSqrt << std::endl;
     std::cout << "SQRT(data): " << dataSqrt2 << std::endl;
+
+    // C++20: my custom copy_essential defined with concepts
+    auto [itIn, itOut] = copy_essential(data, std::ostream_iterator<double>(std::cout, " "));
+    assert((itIn == data.end()));
+    std::vector<double> copy10(10);
+    auto [itIn2, itOut2] = copy_essential(data, copy10.begin());
+    assert((itIn2 == data.end()));
+    // assert((itOut2 == copy10.end() -1)); // Need enquiry
 }
