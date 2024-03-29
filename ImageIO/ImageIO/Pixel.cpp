@@ -5,10 +5,50 @@ Pixel::Pixel(double x, double y, rgba_t rgba):
 {
 }
 
-Pixel::~Pixel()
-{
-	std::clog << "Pixel destroyed: " << *this << std::endl;
-}
+//Pixel::Pixel(double x, double y, rgba_t&& rgba):
+//	m_x(x), m_y(y), m_rgba(std::move(rgba))
+//{
+//}
+
+// Custom copy
+//Pixel::Pixel(const Pixel& pixel):
+//	Pixel(pixel.m_x, pixel.m_y, pixel.m_rgba)
+//{
+//}
+
+// Custom move
+//Pixel::Pixel(Pixel&& pixel):
+//	m_x(pixel.m_x), m_y(pixel.m_y), m_rgba(std::move(pixel.m_rgba))
+//{
+//	pixel.m_x = 0.0;
+//	pixel.m_y = 0.0;
+//}
+
+// Custom destructor
+//Pixel::~Pixel()
+//{
+//	std::clog << "Pixel destroyed: " << *this << std::endl;
+//}
+
+// Custom assignment by copy
+//Pixel& Pixel::operator=(const Pixel& pixel)
+//{
+//	m_x = pixel.m_x;
+//	m_y = pixel.m_y;
+//	m_rgba = pixel.m_rgba;
+//	return *this;
+//}
+
+// Custom assignment by move
+//Pixel& Pixel::operator=(Pixel&& pixel)
+//{
+//	m_x = pixel.m_x;
+//	m_y = pixel.m_y;
+//	m_rgba = std::move(pixel.m_rgba);
+//	pixel.m_x = 0.0;
+//	pixel.m_y = 0.0;
+//	return *this;
+//}
 
 double Pixel::x() const
 {
@@ -39,6 +79,11 @@ void Pixel::setRgba(rgba_t rgba)
 {
 	m_rgba = rgba;
 }
+
+//void Pixel::setRgba(rgba_t&& rgba)
+//{
+//	m_rgba = std::move(rgba);
+//}
 
 double Pixel::r() const
 {

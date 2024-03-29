@@ -26,6 +26,9 @@ void demoPixel() {
     Pixel pixel1;
     Pixel pixel2(2.0, 3.0, rgba);
     Pixel pixel3(2.0, 4.0, { 1.0, 0.0, 0.0, 0.5 });
+    pixel1 = pixel2;
+
+    pixel1.setRgba(rgba_t{ 0.1, 0.1, 0.1, 0.1 });
 
     std::cout << pixel1 << std::endl
         << pixel2 << std::endl
@@ -128,7 +131,7 @@ void demoLoopVectorPixel() {
     std::cout << pixels[0] << "..." << pixels[n - 1] << std::endl;
     std::ranges::sort(pixels.begin(), pixels.end(), {}, [](const auto& pixel) { return std::make_pair(pixel.y(), pixel.x()); });
     std::cout << pixels[0] << "..." << pixels[n - 1] << std::endl;
-    std::ranges::sort(pixels.begin(), pixels.end(), {}, [](const auto& pixel) { return std::make_pair(pixel.y(), pixel.x()); });
+    std::ranges::sort(pixels.begin(), pixels.end(), {}, [](const auto& pixel) { return std::make_pair(-pixel.x(), pixel.y()); });
     std::cout << pixels[0] << "..." << pixels[n - 1] << std::endl;
 
     // sort with natural order
@@ -140,14 +143,14 @@ void demoLoopVectorPixel() {
 }
 
 void demoVectorSmartPixelPtr() {
-    std::vector<std::unique_ptr<Pixel>> uniquePixelVector{
+   /* std::vector<std::unique_ptr<Pixel>> uniquePixelVector{
         std::move(std::make_unique<Pixel>()),
         std::move(std::make_unique<Pixel>()),
         std::move(std::make_unique<Pixel>()),
         std::move(std::make_unique<Pixel>())
-    };
+    };*/
 
-    auto& p0 = uniquePixelVector[0]; // ok by ref, KO by copy
+    //auto& p0 = uniquePixelVector[0]; // ok by ref, KO by copy
 
     auto pixel_ptr = std::make_shared<Pixel>();
     std::cout << "Counter pixel: " << pixel_ptr.use_count() << std::endl;
@@ -165,10 +168,23 @@ void demoVectorSmartPixelPtr() {
     auto p1 = sharedPixelVector[0];
 }
 
+void demoCopyMove() {
+    Pixel pixel(2.0, 4.0, { 1.0, 0.0, 0.0, 0.5 });
+    Pixel pixel_copy(pixel); // using constructor by copy
+    Pixel pixel_copy2 = pixel; // using constructor by copy
+    pixel_copy2 = pixel_copy; // using asignment by copy
+    Pixel pixel_move(std::move(pixel));
+    std::cout << pixel
+        << " " << pixel_copy
+        << " " << pixel_move
+        << std::endl;
+}
+
 int main()
 {
     /*demoPixel();
     demoMemory();
-    demoLoopVectorPixel();*/
-    demoVectorSmartPixelPtr();
+    demoLoopVectorPixel();
+    demoVectorSmartPixelPtr();*/
+    demoCopyMove();
 }

@@ -20,7 +20,18 @@ private:
 public:
 	Pixel() = default;
 	Pixel(double x, double y, rgba_t rgba);
-	virtual ~Pixel();
+	// Pixel(double x, double y, const rgba_t& rgba);
+	// Pixel(double x, double y, rgba_t&& rgba);
+	// Pixel(const Pixel& pixel) = delete; // remove copy constructor
+	// Pixel(const Pixel& pixel); // redefine copy constructor
+	// Pixel(Pixel&& pixel); // redefine move constructor
+	//virtual ~Pixel(); // redefine destructor
+	virtual ~Pixel() = default;
+	
+	// Pixel& operator=(const Pixel& pixel) = default;
+	// Pixel& operator=(const Pixel& pixel) = delete;
+	// Pixel& operator=(const Pixel& pixel); // assignment by copy
+	// Pixel& operator=(Pixel&& pixel); // assignment by move
 
 	double x() const;
 	void setX(double x);
@@ -28,8 +39,10 @@ public:
 	double y() const;
 	void setY(double y);
 
-	rgba_t rgba() const;
+	rgba_t rgba() const; // can return const rgba_t&
 	void setRgba(rgba_t rgba);
+	//void setRgba(const rgba_t& rgba);
+	//void setRgba(rgba_t&& rgba);
 
 	double r() const;
 	double g() const;
@@ -43,14 +56,16 @@ public:
 
 	Pixel& operator+=(rgba_t rgba); // left operand = this
 	Pixel& operator+=(const Pixel& pixel);
-	Pixel operator+(rgba_t rgba) const;
-	Pixel operator+(const Pixel& pixel2) const;
+	Pixel&& operator+(rgba_t rgba) const;
+	Pixel&& operator+(const Pixel& pixel2) const;
 
 	//bool operator<(const Pixel& other) const;
 	bool operator==(const Pixel& other) const;
 	std::partial_ordering operator<=>(const Pixel& other) const;
 };
 
+rgba_t& operator+=(rgba_t& rgba1, rgba_t rgba2);
+rgba_t operator+(rgba_t rgba1, rgba_t rgba2);
 std::ostream& operator<<(std::ostream& out, const Pixel& pixel);
 std::ostream& operator<<(std::ostream& out, rgba_t rgba);
 
